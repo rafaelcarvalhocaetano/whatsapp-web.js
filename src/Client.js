@@ -211,8 +211,11 @@ class Client extends EventEmitter {
         if (needAuthentication instanceof Error) throw needAuthentication;
 
         // Scan-qrcode selector was found. Needs authentication
+        
+                console.log({needAuthentication});
         if (needAuthentication) {
             const { failed, failureEventPayload, restart } = await this.authStrategy.onAuthenticationNeeded();
+                         console.log({failed, failureEventPayload, restart});
             if(failed) {
                 /**
                  * Emitted when there has been an error while trying to restore an existing session
@@ -279,6 +282,7 @@ class Client extends EventEmitter {
             try {
                 await page.waitForSelector(INTRO_IMG_SELECTOR, { timeout: 0 });
             } catch(error) {
+                console.log({error});
                 if (
                     error.name === 'ProtocolError' && 
                     error.message && 
