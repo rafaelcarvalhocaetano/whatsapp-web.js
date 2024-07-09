@@ -132,6 +132,7 @@ class Client extends EventEmitter {
 
         const needAuthentication = await this.pupPage.evaluate(async () => {
             let state = window.AuthStore.AppState.state;
+            console.log("🚀 ~ Client ~ needAuthentication ~ state:", state);
 
             if (
                 state === "OPENING" ||
@@ -159,6 +160,7 @@ class Client extends EventEmitter {
                 });
             }
             state = window.AuthStore.AppState.state;
+            console.log("🚀 ~ Client ~ needAuthentication ~ state:", state);
             return state == "UNPAIRED" || state == "UNPAIRED_IDLE";
         });
         console.log(
