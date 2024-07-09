@@ -134,6 +134,7 @@ class Client extends EventEmitter {
         }
         console.log("🚀 ~ pre-needAuthentication:");
         const needAuthentication = await this.pupPage.evaluate(async () => {
+            console.log("🚀 ~ 11111 ~ evaluate:");
             let state = window.AuthStore.AppState.state;
             console.log("🚀 ~ Client ~ needAuthentication ~ state:", state);
 
