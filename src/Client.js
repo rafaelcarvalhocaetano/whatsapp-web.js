@@ -134,44 +134,54 @@ class Client extends EventEmitter {
         }
 
         console.log("🚀 ~ pre-needAuthentication:");
-        const needAuthentication = await this.pupPage.evaluate(async () => {
-            console.log("🚀 ~ 11111 ~ evaluate:");
-            let state = window.AuthStore.AppState.state;
-            console.log("🚀 ~ Client ~ needAuthentication ~ state:", state);
+        let needAuthentication = false;
+        try {
+            console.log("🚀 ~ cccccccccc:");
+            needAuthentication = await this.pupPage.evaluate(async () => {
+                console.log("🚀 ~ 11111 ~ evaluate:");
+                let state = window.AuthStore.AppState.state;
+                console.log("🚀 ~ Client ~ needAuthentication ~ state:", state);
 
-            if (
-                state === "OPENING" ||
-                state === "UNLAUNCHED" ||
-                state === "PAIRING"
-            ) {
-                // wait till state changes
-                await new Promise((r) => {
-                    window.AuthStore.AppState.on(
-                        "change:state",
-                        function waitTillInit(_AppState, state) {
-                            if (
-                                state !== "OPENING" &&
-                                state !== "UNLAUNCHED" &&
-                                state !== "PAIRING"
-                            ) {
-                                window.AuthStore.AppState.off(
-                                    "change:state",
-                                    waitTillInit
-                                );
-                                r();
+                if (
+                    state === "OPENING" ||
+                    state === "UNLAUNCHED" ||
+                    state === "PAIRING"
+                ) {
+                    // wait till state changes
+                    await new Promise((r) => {
+                        console.log("🚀 ~ Client ~ awaitnewPromise ~ r:");
+                        window.AuthStore.AppState.on(
+                            "change:state",
+                            function waitTillInit(_AppState, state) {
+                                if (
+                                    state !== "OPENING" &&
+                                    state !== "UNLAUNCHED" &&
+                                    state !== "PAIRING"
+                                ) {
+                                    window.AuthStore.AppState.off(
+                                        "change:state",
+                                        waitTillInit
+                                    );
+                                    r();
+                                }
                             }
-                        }
-                    );
-                });
-            }
-            state = window.AuthStore.AppState.state;
-            console.log("🚀 ~ Client ~ needAuthentication ~ state:", state);
-            return state == "UNPAIRED" || state == "UNPAIRED_IDLE";
-        });
+                        );
+                    });
+                }
+                state = window.AuthStore.AppState.state;
+                console.log("🚀 ~ Client ~ needAuthentication ~ state:", state);
+                return state == "UNPAIRED" || state == "UNPAIRED_IDLE";
+            });
+        } catch (e) {
+            console.log("🚀 ~ Client ~ inject ~ e:", e);
+        }
         console.log("🚀 ~ xx needAuthentication:", needAuthentication);
 
-        console.log("🚀 ~ qqq ~ needAuthentication:", needAuthentication);
         if (needAuthentication) {
+            console.log(
+                "🚀 ~ xx aaaaaaaaaaaaaaaaaapasasdsadsaa:",
+                needAuthentication
+            );
             const { failed, failureEventPayload, restart } =
                 await this.authStrategy.onAuthenticationNeeded();
 
