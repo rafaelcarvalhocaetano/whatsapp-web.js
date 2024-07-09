@@ -118,6 +118,7 @@ class Client extends EventEmitter {
         );
 
         const version = await this.getWWebVersion();
+        console.log("🚀 ~ Client ~ inject ~ version:", version);
         const isCometOrAbove = parseInt(version.split(".")?.[1]) >= 3000;
         console.log("🚀 ~ Client ~ inject ~ isCometOrAbove:", isCometOrAbove);
 
