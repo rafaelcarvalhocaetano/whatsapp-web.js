@@ -116,7 +116,7 @@ class Client extends EventEmitter {
             "window.Debug?.VERSION != undefined",
             { timeout: this.options.authTimeoutMs }
         );
-
+        this.pupPage.on("consolexxxx", (msg) => console.log(msg));
         const version = await this.getWWebVersion();
         console.log("🚀 ~ Client ~ inject ~ version:", version);
         const isCometOrAbove = parseInt(version.split(".")?.[1]) >= 3000;
@@ -136,6 +136,7 @@ class Client extends EventEmitter {
         console.log("🚀 ~ pre-needAuthentication:");
         let needAuthentication = false;
         try {
+            this.pupPage.on("console", (msg) => console.log(msg));
             console.log("🚀 ~ cccccccccc:");
             needAuthentication = await this.pupPage.evaluate(async () => {
                 console.log("🚀 ~ 11111 ~ evaluate:");
