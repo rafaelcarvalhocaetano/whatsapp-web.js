@@ -441,6 +441,9 @@ class Client extends EventEmitter {
 
         this.pupBrowser = browser;
         this.pupPage = page;
+        this.pupPage.on("console", (msg) =>
+            console.log("msg-text", msg.text())
+        );
 
         await this.authStrategy.afterBrowserInitialized();
         await this.initWebVersionCache();
