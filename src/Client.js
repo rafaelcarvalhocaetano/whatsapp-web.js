@@ -122,14 +122,16 @@ class Client extends EventEmitter {
         console.log("🚀 ~ Client ~ inject ~ isCometOrAbove:", isCometOrAbove);
 
         if (isCometOrAbove) {
+            console.log("🚀 ~ aaaax:", ExposeAuthStore);
             await this.pupPage.evaluate(ExposeAuthStore);
         } else {
+            console.log("🚀 ~ x:");
             await this.pupPage.evaluate(
                 ExposeLegacyAuthStore,
                 moduleRaid.toString()
             );
         }
-
+        console.log("🚀 ~ pre-needAuthentication:");
         const needAuthentication = await this.pupPage.evaluate(async () => {
             let state = window.AuthStore.AppState.state;
             console.log("🚀 ~ Client ~ needAuthentication ~ state:", state);
