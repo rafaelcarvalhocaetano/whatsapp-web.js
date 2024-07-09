@@ -132,6 +132,7 @@ class Client extends EventEmitter {
                 moduleRaid.toString()
             );
         }
+
         console.log("🚀 ~ pre-needAuthentication:");
         const needAuthentication = await this.pupPage.evaluate(async () => {
             console.log("🚀 ~ 11111 ~ evaluate:");
@@ -167,15 +168,9 @@ class Client extends EventEmitter {
             console.log("🚀 ~ Client ~ needAuthentication ~ state:", state);
             return state == "UNPAIRED" || state == "UNPAIRED_IDLE";
         });
-        console.log(
-            "🚀 ~ Client ~ needAuthentication ~ needAuthentication:",
-            needAuthentication
-        );
+        console.log("🚀 ~ xx needAuthentication:", needAuthentication);
 
-        console.log(
-            "🚀 ~ Client ~ inject ~ needAuthentication:",
-            needAuthentication
-        );
+        console.log("🚀 ~ qqq ~ needAuthentication:", needAuthentication);
         if (needAuthentication) {
             const { failed, failureEventPayload, restart } =
                 await this.authStrategy.onAuthenticationNeeded();

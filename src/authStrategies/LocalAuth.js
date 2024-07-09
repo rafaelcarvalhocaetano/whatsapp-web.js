@@ -52,10 +52,7 @@ class LocalAuth extends BaseAuthStrategy {
     }
 
     async logout() {
-        console.log(
-            "🚀 ~ LocalAuth ~ logout ~ this.userDataDir:",
-            this.userDataDir
-        );
+        console.log("🚀 ~ xxxxx this.userDataDir:", this.userDataDir);
         if (this.userDataDir) {
             await fs.promises
                 .rm(this.userDataDir, { recursive: true, force: true })
